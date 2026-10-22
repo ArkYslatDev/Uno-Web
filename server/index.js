@@ -23,9 +23,9 @@ io.on('connection', (socket) => {
     const players = [{ id: socket.id, name, isAI: false, hand: [] }];
     
     if (vsAI) {
-      players.push({ id: 'AI_1', name: 'AI Merah', isAI: true, hand: [] });
-      players.push({ id: 'AI_2', name: 'AI Biru', isAI: true, hand: [] });
-      players.push({ id: 'AI_3', name: 'AI Hijau', isAI: true, hand: [] });
+      players.push({ id: 'AI_1', name: 'Red AI', isAI: true, hand: [] });
+      players.push({ id: 'AI_2', name: 'Blue AI', isAI: true, hand: [] });
+      players.push({ id: 'AI_3', name: 'Green AI', isAI: true, hand: [] });
     }
 
     const game = new Game(roomId, players);
@@ -38,9 +38,9 @@ io.on('connection', (socket) => {
 
   socket.on('joinRoom', ({ name, roomId }, cb) => {
     const room = rooms.get(roomId);
-    if (!room) return cb({ ok: false, error: 'Room tidak ditemukan' });
+    if (!room) return cb({ ok: false, error: 'Room not found' });
     
-    if (room.game.players.length >= 8) return cb({ ok: false, error: 'Room penuh (Maksimal 8 orang)' });
+    if (room.game.players.length >= 8) return cb({ ok: false, error: 'Room is full (Max 8 players)' });
 
     const player = { id: socket.id, name, isAI: false, hand: [] };
     room.game.players.push(player);
@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
   socket.on('startGame', () => {
     const room = rooms.get(socket.data.roomId);
     if (!room) return;
-    if (room.game.players.length < 2) return socket.emit('error', 'Butuh minimal 2 pemain');
+    if (room.game.players.length < 2) return socket.emit('error', 'Need at least 2 players');
     room.game.start();
     broadcastState(room.game);
     maybeAITurn(socket.data.roomId);
@@ -129,13 +129,11 @@ async function maybeAITurn(roomId) {
 }
 
 const PORT = process.env.PORT || 3000;
-
-// UPDATE: Tambahkan '0.0.0.0' agar bisa diakses dari HP / Wi-Fi
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n=================================`);
-  console.log(`✅ SERVER UNO BERJALAN!`);
+  console.log(`✅ UNO SERVER IS RUNNING!`);
   console.log(`=================================`);
-  console.log(`👉 Di PC ini     : http://localhost:${PORT}`);
-  console.log(`👉 Di HP / Lain  : http://<IP-KOMPUTER>:${PORT}`);
+  console.log(`👉 Local (PC)  : http://localhost:${PORT}`);
+  console.log(`👉 Network (HP): http://<YOUR-IP>:${PORT}`);
   console.log(`=================================\n`);
 });

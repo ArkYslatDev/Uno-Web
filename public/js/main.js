@@ -29,8 +29,8 @@ document.getElementById('btnCreate').onclick = async () => {
   const name = document.getElementById('playerName').value.trim() || 'Player';
   try {
     const r = await createRoom(name, false);
-    document.getElementById('lobbyStatus').textContent = `Room: ${r.roomId} — tunggu pemain lain, lalu tekan tombol lagi untuk mulai.`;
-    document.getElementById('btnCreate').textContent = '▶ Mulai Game';
+    document.getElementById('lobbyStatus').textContent = `Room: ${r.roomId} — wait for players, then click again to start.`;
+    document.getElementById('btnCreate').textContent = '▶ Start Game';
     document.getElementById('btnCreate').onclick = () => {
       startGame();
       lobbyEl.classList.remove('active');
@@ -56,9 +56,11 @@ function renderGame(state) {
   colorIndicator.style.color = state.currentColor;
 
   const current = state.players.find(p => p.id === state.currentPlayer);
+  
+  // Teks status giliran diterjemahkan ke Inggris
   turnLabel.textContent = state.winner
-    ? '🏆 ' + state.players.find(p => p.id === state.winner).name + ' menang!'
-    : current.id === myId ? '👉 Giliranmu!' : '⏳ Menunggu ' + current.name;
+    ? '🏆 ' + state.players.find(p => p.id === state.winner).name + ' wins!'
+    : current.id === myId ? '👉 Your turn!' : '⏳ Waiting for ' + current.name;
 
   opponentEl.innerHTML = '';
   for (const p of state.players) {
@@ -67,7 +69,7 @@ function renderGame(state) {
     div.className = 'opponent' + (p.id === state.currentPlayer ? ' active' : '');
     div.innerHTML = `<div>${p.name}${p.isAI ? ' 🤖' : ''}</div>
       <div class="cards-mini">${'<div class="mini-card"></div>'.repeat(Math.min(p.handCount, 8))}</div>
-      <div style="font-size:12px;opacity:0.7">${p.handCount} kartu</div>`;
+      <div style="font-size:12px;opacity:0.7">${p.handCount} cards</div>`;
     opponentEl.appendChild(div);
   }
 
@@ -84,7 +86,7 @@ function renderGame(state) {
       const playable = canPlayClient(card, state.topCard, state.currentColor);
       if (playable && me.id === state.currentPlayer && !state.winner) {
         cardEl.classList.add('playable');
-        cardEl.onclick = () => handleCardClick(card); // <-- Bug fixed
+        cardEl.onclick = () => handleCardClick(card);
       } else {
         cardEl.style.cursor = 'default';
       }
@@ -94,7 +96,7 @@ function renderGame(state) {
 
   if (state.winner) {
     const winner = state.players.find(p => p.id === state.winner);
-    winTitle.textContent = winner.id === myId ? '🎉 Kamu Menang!' : `😢 ${winner.name} menang`;
+    winTitle.textContent = winner.id === myId ? '🎉 You Win!' : `😢 ${winner.name} wins`;
     winModal.classList.add('active');
   }
 }

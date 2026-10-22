@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +10,13 @@
   <div id="lobby" class="screen active">
     <div class="lobby-card">
       <h1>UNO <span>ONLINE</span></h1>
-      <input id="playerName" type="text" placeholder="Nama kamu..." maxlength="12">
+      <input id="playerName" type="text" placeholder="Your name..." maxlength="12">
       <div class="lobby-buttons">
-        <button id="btnVsAI" class="btn primary">🤖 Main vs AI</button>
-        <button id="btnCreate" class="btn">🌐 Buat Room</button>
+        <button id="btnVsAI" class="btn primary">🤖 Play vs AI</button>
+        <button id="btnCreate" class="btn">🌐 Create Room</button>
         <div class="join-row">
-          <input id="roomCode" type="text" placeholder="Kode room" maxlength="5">
-          <button id="btnJoin" class="btn">Gabung</button>
+          <input id="roomCode" type="text" placeholder="Room code" maxlength="5">
+          <button id="btnJoin" class="btn">Join</button>
         </div>
       </div>
       <div id="lobbyStatus" class="status"></div>
@@ -46,7 +46,7 @@
 
   <div id="colorModal" class="modal">
     <div class="modal-content">
-      <h3>Pilih Warna</h3>
+      <h3>Choose a Color</h3>
       <div class="color-choices">
         <button data-color="red" class="color-btn red"></button>
         <button data-color="yellow" class="color-btn yellow"></button>
@@ -58,8 +58,8 @@
 
   <div id="winModal" class="modal">
     <div class="modal-content">
-      <h2 id="winTitle">🎉 Kamu Menang!</h2>
-      <button class="btn primary" onclick="location.reload()">Main Lagi</button>
+      <h2 id="winTitle">🎉 You Win!</h2>
+      <button class="btn primary" onclick="location.reload()">Play Again</button>
     </div>
   </div>
 
