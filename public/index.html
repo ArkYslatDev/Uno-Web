@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNO Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="lobby" class="screen active">
+    <div class="lobby-card">
+      <h1>UNO <span>ONLINE</span></h1>
+      <input id="playerName" type="text" placeholder="Nama kamu..." maxlength="12">
+      <div class="lobby-buttons">
+        <button id="btnVsAI" class="btn primary">🤖 Main vs AI</button>
+        <button id="btnCreate" class="btn">🌐 Buat Room</button>
+        <div class="join-row">
+          <input id="roomCode" type="text" placeholder="Kode room" maxlength="5">
+          <button id="btnJoin" class="btn">Gabung</button>
+        </div>
+      </div>
+      <div id="lobbyStatus" class="status"></div>
+    </div>
+  </div>
+
+  <div id="game" class="screen">
+    <div class="top-bar">
+      <span id="roomLabel"></span>
+      <span id="turnLabel"></span>
+    </div>
+
+    <div class="opponents" id="opponents"></div>
+
+    <div class="table">
+      <div id="deckPile" class="pile deck">
+        <span class="deck-count" id="deckCount">108</span>
+      </div>
+      <div id="discardPile" class="pile discard"></div>
+      <div id="colorIndicator" class="color-indicator"></div>
+    </div>
+
+    <div class="player-area">
+      <div class="hand" id="playerHand"></div>
+    </div>
+  </div>
+
+  <div id="colorModal" class="modal">
+    <div class="modal-content">
+      <h3>Pilih Warna</h3>
+      <div class="color-choices">
+        <button data-color="red" class="color-btn red"></button>
+        <button data-color="yellow" class="color-btn yellow"></button>
+        <button data-color="green" class="color-btn green"></button>
+        <button data-color="blue" class="color-btn blue"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="winModal" class="modal">
+    <div class="modal-content">
+      <h2 id="winTitle">🎉 Kamu Menang!</h2>
+      <button class="btn primary" onclick="location.reload()">Main Lagi</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/gameClient.js"></script>
+  <script src="/js/animations.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
